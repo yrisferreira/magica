@@ -1,31 +1,27 @@
 (function () {
   "use strict";
 
-  /**
-   * Elogios vagos e leves — para quem ainda não se conheceu pessoalmente
-   * (tu / masculino), sem assumir memórias partilhadas.
-   */
-  const ELOGIOS = [
-    "És lindo. ✨",
-    "És tão gostoso.",
-    "Aposto que tens um sorriso de derreter o coração.",
-    "Tens um brilho que se nota mesmo à distância.",
-    "És fofo sem nem tentar.",
-    "Que combinação injusta: bonito e interessante.",
-    "Tens cara de quem faz corações bater mais forte.",
-    "És charmoso só de existir.",
-    "Adoro a tua vibe — boa energia.",
-    "És cute demais para este mundo.",
-    "Tens um jeito que prende a atenção.",
-    "És irresistível, sabias?",
-    "Bonito da cabeça aos pés (sim, estou a flertar).",
-    "O teu sorriso, mesmo em foto, deve ser perigoso.",
-    "És daquele tipo de pessoa que se fica na cabeça.",
-    "Gostoso e fofo ao mesmo tempo — combo raro.",
-    "Tens magia na expressão — ou sou eu que gosto muito de ti.",
-    "És lindo por fora; por dentro já dá para imaginar que és igualmente incrível.",
-    "Cada mensagem tua tem cara de sorriso — adoro isso.",
-    "És aquele crush que faz o telemóvel piscar com mais vontade.",
+  const COMPLIMENTS = [
+    "You are gorgeous. ✨",
+    "You are so attractive.",
+    "I bet you have a heart-melting smile.",
+    "You have a glow that shows, even from afar.",
+    "You are adorable without even trying.",
+    "Unfair combo: good-looking and interesting.",
+    "You look like someone who makes hearts beat faster.",
+    "You are charming just by being here.",
+    "I love your vibe — great energy.",
+    "You are almost too cute for this world.",
+    "You have a way of holding attention.",
+    "You are irresistible — you know that?",
+    "Handsome from head to toe (yes, I am flirting).",
+    "Your smile, even in photos, must be dangerous.",
+    "You are the kind of person who sticks in the mind.",
+    "Hot and sweet at the same time — a rare mix.",
+    "There is magic in the way you look — or maybe I just like you a lot.",
+    "You are beautiful outside; it is easy to imagine you are just as amazing inside.",
+    "Every message from you feels like a smile — I love that.",
+    "You are the crush that makes the phone light up a little brighter.",
   ];
 
   const CARD_COUNT = 9;
@@ -55,7 +51,7 @@
   function drawComplimentsForDeck(count) {
     const out = [];
     while (out.length < count) {
-      for (const line of shuffle([...ELOGIOS])) {
+      for (const line of shuffle([...COMPLIMENTS])) {
         if (out.length >= count) break;
         out.push(line);
       }
@@ -67,7 +63,7 @@
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "pick-card";
-    btn.setAttribute("aria-label", `Carta ${index + 1} — toca para revelar um elogio`);
+    btn.setAttribute("aria-label", `Card ${index + 1} — tap to reveal a compliment`);
     btn.innerHTML = `
       <span class="pick-card-inner">
         <span class="fan-card-flip">
@@ -193,7 +189,7 @@
     playMagicChime("reveal");
 
     btn.classList.add("is-revealed");
-    btn.setAttribute("aria-label", "Elogio revelado nesta carta");
+    btn.setAttribute("aria-label", "Compliment revealed on this card");
 
     const inner = btn.querySelector(".card-flip-inner");
     requestAnimationFrame(() => {
@@ -237,7 +233,7 @@
 
     await wait(420);
     phaseText.textContent =
-      "Todas as cartas estão à vista — vira quantas quiseres. Cada uma guarda um elogio para ti. ✨";
+      "All the cards are in view — flip as many as you like. Each one holds a compliment for you. ✨";
     phaseText.classList.add("phase-text--show");
   });
 })();

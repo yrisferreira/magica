@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Uma surpresa para ti ✨</title>
+  <title>I have a magic trick for you ✨</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -21,10 +21,9 @@
     <div class="orb orb-b"></div>
   </div>
 
-  <!-- Bonequinho mágico (decoração) -->
   <div class="wizard-buddy" aria-hidden="true">
     <svg class="wizard-buddy__svg" viewBox="0 0 120 140" width="120" height="140" role="img">
-      <title>Mágico fofo</title>
+      <title>Friendly little wizard</title>
       <defs>
         <linearGradient id="wizHat" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" style="stop-color:#6b5fd4" />
@@ -60,12 +59,11 @@
     <span class="wizard-buddy__spark" aria-hidden="true">✨</span>
   </div>
 
-  <!-- Coelhinho mágico a passar pelo ecrã -->
   <div class="rabbit-runway" aria-hidden="true">
     <div class="rabbit-racer">
       <div class="rabbit-racer__bob">
         <svg class="rabbit-racer__svg" viewBox="0 0 64 56" width="56" height="49" role="img">
-          <title>Coelho mágico</title>
+          <title>Magic rabbit</title>
           <ellipse cx="32" cy="22" rx="22" ry="6" fill="#2a2248" />
           <rect x="18" y="8" width="28" height="16" rx="2" fill="#4a3f8c" stroke="#d4a84b" stroke-width="1" />
           <rect x="22" y="4" width="20" height="8" rx="1" fill="#6b5fd4" />
@@ -84,10 +82,9 @@
 
   <main class="stage">
     <section class="panel intro-panel" id="intro-panel" aria-labelledby="main-title">
-      <h1 class="title" id="main-title">Uma surpresa para ti ✨</h1>
-      <p class="subtitle">Um pouco de magia, sincera — mesmo antes de nos vermos.</p>
+      <h1 class="title" id="main-title">I have a magic trick for you ✨</h1>
       <button type="button" class="btn btn-primary" id="start-btn">
-        Clica para começar a magia
+        Click for the magic to begin
       </button>
     </section>
 
@@ -96,19 +93,19 @@
       id="magic-panel"
       hidden
       aria-live="polite"
-      aria-label="Escolhe as cartas"
+      aria-label="Choose your cards"
     >
       <div class="magic-veil" id="magic-veil"></div>
 
       <div class="fan-wrap" id="fan-wrap">
-        <div class="fan" id="fan" role="group" aria-label="Baralho aberto"></div>
+        <div class="fan" id="fan" role="group" aria-label="Spread deck"></div>
       </div>
 
       <p class="phase-text" id="phase-text"></p>
 
       <div class="choice-result" id="choice-result" hidden>
-        <p class="log-title" id="log-title">Elogios que já revelaste ✨</p>
-        <ul class="compliments-log" id="compliments-log" aria-label="Elogios revelados"></ul>
+        <p class="log-title" id="log-title">Compliments you have revealed ✨</p>
+        <ul class="compliments-log" id="compliments-log" aria-label="Revealed compliments"></ul>
       </div>
     </section>
 
@@ -117,7 +114,7 @@
       class="btn-sound"
       id="sound-toggle"
       aria-pressed="true"
-      title="Ligar ou desligar sons"
+      title="Turn sound on or off"
     >
       <span class="sound-on" aria-hidden="true">🔔</span>
       <span class="sound-off" hidden aria-hidden="true">🔕</span>
