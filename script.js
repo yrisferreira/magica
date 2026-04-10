@@ -152,6 +152,10 @@
       playTone(523.25, 0.45, 0.048, t + 0.08);
       playTone(659.25, 0.5, 0.042, t + 0.16);
       playTone(880, 0.55, 0.038, t + 0.24);
+    } else if (kind === "vanish") {
+      playTone(783.99, 0.2, 0.048, t);
+      playTone(987.77, 0.22, 0.04, t + 0.06);
+      playTone(1174.66, 0.28, 0.034, t + 0.13);
     }
   }
 
@@ -164,8 +168,68 @@
 
   let started = false;
 
+  const prefersReducedMotion = () =>
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function scheduleCardVanish(btn) {
+    const inner = btn.querySelector(".card-flip-inner");
+
+    function finishVanish() {
+      if (!btn.classList.contains("is-gone")) btn.classList.add("is-gone");
+    }
+
+    function beginVanish() {
+      if (btn.classList.contains("is-vanishing") || btn.classList.contains("is-gone")) return;
+      playMagicChime("vanish");
+      btn.classList.add("is-vanishing");
+
+      if (prefersReducedMotion()) {
+        window.setTimeout(finishVanish, 100);
+        return;
+      }
+
+      btn.addEventListener(
+        "animationend",
+        (e) => {
+          if (e.animationName === "card-vanish-magic") finishVanish();
+        },
+        { once: true }
+      );
+      window.setTimeout(finishVanish, 2000);
+    }
+
+    if (prefersReducedMotion()) {
+      window.setTimeout(beginVanish, 100);
+      return;
+    }
+
+    let flipHandled = false;
+    function afterFlip() {
+      if (flipHandled) return;
+      flipHandled = true;
+      inner.removeEventListener("transitionend", onFlipDone);
+      beginVanish();
+    }
+
+    function onFlipDone(e) {
+      if (e.target !== inner || e.propertyName !== "transform") return;
+      afterFlip();
+    }
+
+    inner.addEventListener("transitionend", onFlipDone);
+    window.setTimeout(() => {
+      afterFlip();
+    }, 1100);
+  }
+
   function onPickCard(btn) {
-    if (btn.classList.contains("is-revealed")) return;
+    if (
+      btn.classList.contains("is-revealed") ||
+      btn.classList.contains("is-vanishing") ||
+      btn.classList.contains("is-gone")
+    ) {
+      return;
+    }
 
     unlockAudio();
     playMagicChime("reveal");
@@ -177,6 +241,8 @@
     requestAnimationFrame(() => {
       inner.classList.add("is-flipped");
     });
+
+    scheduleCardVanish(btn);
 
     const text = btn.querySelector(".card-compliment-text").textContent.trim();
     const slotIdx = parseInt(btn.dataset.sentenceIndex, 10);

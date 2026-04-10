@@ -441,12 +441,43 @@ body {
   filter: drop-shadow(0 0 18px rgba(212, 168, 75, 0.35));
 }
 
+@keyframes card-vanish-magic {
+  0% {
+    opacity: 1;
+    filter: drop-shadow(0 0 18px rgba(212, 168, 75, 0.45));
+    transform: rotate(0deg) scale(1.02);
+  }
+  40% {
+    opacity: 1;
+    filter:
+      drop-shadow(0 0 36px rgba(255, 220, 130, 0.95))
+      drop-shadow(0 0 24px rgba(107, 95, 212, 0.65));
+    transform: rotate(8deg) scale(1.12);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(16px) brightness(2);
+    transform: rotate(-24deg) scale(0);
+  }
+}
+
+.pick-card.is-vanishing {
+  pointer-events: none;
+  transition: none !important;
+  animation: card-vanish-magic 0.88s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  z-index: 8;
+}
+
+.pick-card.is-gone {
+  display: none;
+}
+
 .pick-card-inner {
   display: block;
   transition: transform 0.28s ease;
 }
 
-.pick-card:hover:not(.is-revealed) .pick-card-inner {
+.pick-card:hover:not(.is-revealed):not(.is-vanishing) .pick-card-inner {
   transform: translateY(-10px) scale(1.04);
 }
 
@@ -766,6 +797,13 @@ body {
 
   .rabbit-racer {
     transform: translateX(35vw);
+  }
+
+  .pick-card.is-vanishing {
+    animation: none;
+    opacity: 0;
+    transform: scale(0.5);
+    filter: none;
   }
 }
 
