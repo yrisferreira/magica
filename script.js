@@ -17,6 +17,8 @@
   const soundToggle = document.getElementById("sound-toggle");
   const starsEl = document.getElementById("stars");
   const twinklesEl = document.getElementById("twinkles");
+  const finaleOverlay = document.getElementById("finale-overlay");
+  const finaleSparkles = document.getElementById("finale-sparkles");
 
   function shuffle(arr) {
     const a = [...arr];
@@ -156,6 +158,12 @@
       playTone(783.99, 0.2, 0.048, t);
       playTone(987.77, 0.22, 0.04, t + 0.06);
       playTone(1174.66, 0.28, 0.034, t + 0.13);
+    } else if (kind === "finale") {
+      playTone(523.25, 0.38, 0.052, t);
+      playTone(659.25, 0.38, 0.046, t + 0.1);
+      playTone(783.99, 0.42, 0.042, t + 0.2);
+      playTone(987.77, 0.48, 0.038, t + 0.3);
+      playTone(1174.66, 0.55, 0.034, t + 0.38);
     }
   }
 
@@ -167,6 +175,40 @@
   });
 
   let started = false;
+  let finaleShown = false;
+
+  function fillFinaleSparkles() {
+    if (!finaleSparkles || finaleSparkles.children.length > 0) return;
+    const glyphs = ["✨", "✦", "⭐", "💫", "˖"];
+    const n = 14;
+    for (let i = 0; i < n; i++) {
+      const s = document.createElement("span");
+      s.textContent = glyphs[i % glyphs.length];
+      s.style.left = `${10 + ((i * 17) % 80)}%`;
+      s.style.top = `${8 + ((i * 23) % 72)}%`;
+      s.style.animationDelay = `${i * 0.16}s`;
+      finaleSparkles.appendChild(s);
+    }
+  }
+
+  function showFinale() {
+    if (finaleShown || !finaleOverlay) return;
+    finaleShown = true;
+    fillFinaleSparkles();
+    unlockAudio();
+    playMagicChime("finale");
+    finaleOverlay.removeAttribute("hidden");
+    finaleOverlay.setAttribute("aria-hidden", "false");
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => finaleOverlay.classList.add("is-visible"));
+    });
+  }
+
+  function maybeShowFinale() {
+    const n = sentenceAssembly.querySelectorAll(".word-slot.is-revealed").length;
+    if (n < PHRASE_WORDS.length) return;
+    window.setTimeout(showFinale, 950);
+  }
 
   const prefersReducedMotion = () =>
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -255,6 +297,7 @@
 
     choiceResult.removeAttribute("hidden");
     slot?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    maybeShowFinale();
   }
 
   startBtn.addEventListener("click", async () => {

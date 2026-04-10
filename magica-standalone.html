@@ -141,40 +141,6 @@ body {
   opacity: 0.2;
 }
 
-.wizard-buddy {
-  position: fixed;
-  z-index: 5;
-  left: clamp(0.35rem, 2.5vw, 1.1rem);
-  bottom: clamp(5rem, 14vh, 7.5rem);
-  pointer-events: none;
-  animation: wizard-float 3.8s ease-in-out infinite;
-  filter: drop-shadow(0 10px 28px rgba(107, 95, 212, 0.5));
-}
-
-.wizard-buddy__svg {
-  display: block;
-  width: clamp(76px, 24vw, 118px);
-  height: auto;
-}
-
-.wizard-buddy__spark {
-  position: absolute;
-  top: 0;
-  right: -0.15rem;
-  font-size: 1.15rem;
-  animation: spark-twinkle 1.6s ease-in-out infinite;
-}
-
-@keyframes wizard-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-11px);
-  }
-}
-
 @keyframes spark-twinkle {
   0%,
   100% {
@@ -190,10 +156,11 @@ body {
 .rabbit-runway {
   position: fixed;
   left: 0;
+  top: clamp(0.5rem, 2.5vh, 1rem);
+  bottom: auto;
   width: 100%;
-  bottom: clamp(3.25rem, 9vh, 6.25rem);
   height: 58px;
-  z-index: 4;
+  z-index: 6;
   pointer-events: none;
   overflow: hidden;
 }
@@ -201,7 +168,8 @@ body {
 .rabbit-racer {
   position: absolute;
   left: 0;
-  bottom: 0;
+  top: 0;
+  bottom: auto;
   will-change: transform;
   animation: rabbit-sprint 20s linear infinite;
 }
@@ -250,7 +218,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(1.25rem, 4vw, 2.5rem);
+  padding: clamp(4.25rem, 11vh, 5.5rem) clamp(1.25rem, 4vw, 2.5rem) clamp(1.25rem, 4vw, 2.5rem);
 }
 
 .panel {
@@ -770,6 +738,169 @@ body {
   opacity: 0.75;
 }
 
+.finale-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 4vw, 2rem);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.95s ease,
+    visibility 0.95s ease;
+  pointer-events: none;
+}
+
+.finale-overlay[hidden] {
+  display: none !important;
+}
+
+.finale-overlay.is-visible {
+  display: flex !important;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.finale-backdrop {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 90% 70% at 50% 45%, rgba(201, 24, 74, 0.22) 0%, transparent 55%),
+    rgba(8, 6, 18, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.finale-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: min(100%, 28rem);
+}
+
+.finale-sparkles {
+  position: absolute;
+  inset: -20% -30% -25% -30%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.finale-sparkles span {
+  position: absolute;
+  font-size: clamp(0.85rem, 3vw, 1.25rem);
+  opacity: 0;
+  animation: finale-sparkle-float 3.2s ease-in-out infinite;
+  text-shadow: 0 0 12px rgba(255, 220, 140, 0.9);
+}
+
+.finale-overlay.is-visible .finale-sparkles span {
+  opacity: 1;
+}
+
+@keyframes finale-sparkle-float {
+  0%,
+  100% {
+    transform: translateY(0) scale(0.85) rotate(0deg);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translateY(-18px) scale(1.15) rotate(12deg);
+    opacity: 1;
+  }
+}
+
+.finale-heart-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  animation: finale-heartbeat 1.35s ease-in-out infinite;
+}
+
+@keyframes finale-heartbeat {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 28px rgba(255, 105, 150, 0.55));
+  }
+  50% {
+    transform: scale(1.06);
+    filter: drop-shadow(0 0 48px rgba(255, 180, 200, 0.85));
+  }
+}
+
+.finale-heart-svg {
+  width: min(72vw, 280px);
+  height: auto;
+  display: block;
+}
+
+.finale-heart-path {
+  animation: finale-heart-glow 2.2s ease-in-out infinite;
+}
+
+@keyframes finale-heart-glow {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.92;
+  }
+}
+
+.finale-words {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 11vw, 4.75rem);
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.05;
+  margin: 0;
+  padding: 0 0.25rem;
+  color: #fff5f8;
+  letter-spacing: 0.02em;
+  text-shadow:
+    0 0 24px rgba(255, 150, 190, 0.95),
+    0 0 56px rgba(201, 24, 74, 0.65),
+    0 2px 0 rgba(90, 10, 40, 0.35);
+  animation: finale-text-shine 2.8s ease-in-out infinite;
+}
+
+@keyframes finale-text-shine {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.2);
+  }
+}
+
+.finale-magic-line {
+  margin: 1.25rem 0 0;
+  font-size: clamp(1rem, 3.5vw, 1.35rem);
+  letter-spacing: 0.65em;
+  color: rgba(255, 230, 180, 0.9);
+  text-shadow: 0 0 20px rgba(212, 168, 75, 0.7);
+  animation: finale-sparkle-line 2s ease-in-out infinite;
+}
+
+@keyframes finale-sparkle-line {
+  0%,
+  100% {
+    opacity: 0.65;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -797,11 +928,14 @@ body {
     transform: rotateY(180deg);
   }
 
-  .wizard-buddy,
   .rabbit-racer,
   .rabbit-racer__bob,
-  .wizard-buddy__spark,
-  .rabbit-racer__stars {
+  .rabbit-racer__stars,
+  .finale-heart-wrap,
+  .finale-heart-path,
+  .finale-words,
+  .finale-magic-line,
+  .finale-sparkles span {
     animation: none !important;
   }
 
@@ -815,17 +949,19 @@ body {
     transform: scale(0.5);
     filter: none;
   }
+
+  .finale-overlay {
+    transition: none;
+  }
+
+  .finale-sparkles span {
+    opacity: 0.75;
+  }
 }
 
 @media (max-width: 520px) {
-  .wizard-buddy {
-    bottom: auto;
-    top: clamp(4.5rem, 14vw, 6rem);
-    left: 0.35rem;
-  }
-
   .rabbit-runway {
-    bottom: 3.5rem;
+    top: 0.35rem;
   }
 }
 
@@ -847,44 +983,6 @@ body {
   <div class="glow-orbs" aria-hidden="true">
     <div class="orb orb-a"></div>
     <div class="orb orb-b"></div>
-  </div>
-
-  <div class="wizard-buddy" aria-hidden="true">
-    <svg class="wizard-buddy__svg" viewBox="0 0 120 140" width="120" height="140" role="img">
-      <title>Friendly little wizard</title>
-      <defs>
-        <linearGradient id="wizHat" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style="stop-color:#6b5fd4" />
-          <stop offset="100%" style="stop-color:#3d2f7a" />
-        </linearGradient>
-        <linearGradient id="wizRobe" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" style="stop-color:#4a3f8c" />
-          <stop offset="100%" style="stop-color:#2a2248" />
-        </linearGradient>
-      </defs>
-      <ellipse cx="60" cy="128" rx="38" ry="8" fill="rgba(0,0,0,0.35)" />
-      <!-- barba -->
-      <path d="M38 88 Q60 118 82 88 Q78 102 60 108 Q42 102 38 88" fill="#c9b8e8" opacity="0.9" />
-      <!-- robe -->
-      <path d="M35 85 L28 130 L92 130 L85 85 Z" fill="url(#wizRobe)" stroke="#d4a84b" stroke-width="1.2" />
-      <!-- face -->
-      <circle cx="60" cy="72" r="22" fill="#f5d4c8" />
-      <!-- olhos -->
-      <circle cx="52" cy="70" r="3.5" fill="#2a2248" />
-      <circle cx="68" cy="70" r="3.5" fill="#2a2248" />
-      <circle cx="53" cy="69" r="1.2" fill="#fff" />
-      <circle cx="69" cy="69" r="1.2" fill="#fff" />
-      <!-- sorriso -->
-      <path d="M52 80 Q60 86 68 80" fill="none" stroke="#c47a6a" stroke-width="1.8" stroke-linecap="round" />
-      <!-- chapéu -->
-      <path d="M30 68 L60 18 L90 68 Q60 62 30 68 Z" fill="url(#wizHat)" stroke="#d4a84b" stroke-width="1.5" />
-      <ellipse cx="60" cy="68" rx="34" ry="7" fill="#2a2248" stroke="#d4a84b" stroke-width="1" />
-      <text x="48" y="48" font-size="14" fill="#ffd866">✦</text>
-      <!-- varinha -->
-      <line x1="88" y1="95" x2="108" y2="72" stroke="#d4a84b" stroke-width="3" stroke-linecap="round" />
-      <circle cx="110" cy="69" r="5" fill="#fff8a8" opacity="0.95" />
-    </svg>
-    <span class="wizard-buddy__spark" aria-hidden="true">✨</span>
   </div>
 
   <div class="rabbit-runway" aria-hidden="true">
@@ -949,6 +1047,47 @@ body {
     </button>
   </main>
 
+  <div
+    class="finale-overlay"
+    id="finale-overlay"
+    hidden
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="finale-title"
+    aria-hidden="true"
+  >
+    <div class="finale-backdrop" aria-hidden="true"></div>
+    <div class="finale-content">
+      <div class="finale-sparkles" id="finale-sparkles" aria-hidden="true"></div>
+      <div class="finale-heart-wrap">
+        <svg class="finale-heart-svg" viewBox="0 0 200 190" width="280" height="266" aria-hidden="true">
+          <defs>
+            <linearGradient id="finaleHeartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#ff8fab" />
+              <stop offset="45%" stop-color="#c9184a" />
+              <stop offset="100%" stop-color="#ff5d8f" />
+            </linearGradient>
+            <filter id="finaleHeartGlow" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+          <path
+            class="finale-heart-path"
+            fill="url(#finaleHeartGrad)"
+            filter="url(#finaleHeartGlow)"
+            d="M100 178 C24 108 4 62 4 42 C4 17 24 2 49 2 C72 2 88 16 100 36 C112 16 128 2 151 2 C176 2 196 17 196 42 C196 62 176 108 100 178Z"
+          />
+        </svg>
+        <p class="finale-words" id="finale-title">te quiero</p>
+      </div>
+      <p class="finale-magic-line" aria-hidden="true">✦ ✨ ✦</p>
+    </div>
+  </div>
+
   <script>
 (function () {
   "use strict";
@@ -969,6 +1108,8 @@ body {
   const soundToggle = document.getElementById("sound-toggle");
   const starsEl = document.getElementById("stars");
   const twinklesEl = document.getElementById("twinkles");
+  const finaleOverlay = document.getElementById("finale-overlay");
+  const finaleSparkles = document.getElementById("finale-sparkles");
 
   function shuffle(arr) {
     const a = [...arr];
@@ -1108,6 +1249,12 @@ body {
       playTone(783.99, 0.2, 0.048, t);
       playTone(987.77, 0.22, 0.04, t + 0.06);
       playTone(1174.66, 0.28, 0.034, t + 0.13);
+    } else if (kind === "finale") {
+      playTone(523.25, 0.38, 0.052, t);
+      playTone(659.25, 0.38, 0.046, t + 0.1);
+      playTone(783.99, 0.42, 0.042, t + 0.2);
+      playTone(987.77, 0.48, 0.038, t + 0.3);
+      playTone(1174.66, 0.55, 0.034, t + 0.38);
     }
   }
 
@@ -1119,6 +1266,40 @@ body {
   });
 
   let started = false;
+  let finaleShown = false;
+
+  function fillFinaleSparkles() {
+    if (!finaleSparkles || finaleSparkles.children.length > 0) return;
+    const glyphs = ["✨", "✦", "⭐", "💫", "˖"];
+    const n = 14;
+    for (let i = 0; i < n; i++) {
+      const s = document.createElement("span");
+      s.textContent = glyphs[i % glyphs.length];
+      s.style.left = `${10 + ((i * 17) % 80)}%`;
+      s.style.top = `${8 + ((i * 23) % 72)}%`;
+      s.style.animationDelay = `${i * 0.16}s`;
+      finaleSparkles.appendChild(s);
+    }
+  }
+
+  function showFinale() {
+    if (finaleShown || !finaleOverlay) return;
+    finaleShown = true;
+    fillFinaleSparkles();
+    unlockAudio();
+    playMagicChime("finale");
+    finaleOverlay.removeAttribute("hidden");
+    finaleOverlay.setAttribute("aria-hidden", "false");
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => finaleOverlay.classList.add("is-visible"));
+    });
+  }
+
+  function maybeShowFinale() {
+    const n = sentenceAssembly.querySelectorAll(".word-slot.is-revealed").length;
+    if (n < PHRASE_WORDS.length) return;
+    window.setTimeout(showFinale, 950);
+  }
 
   const prefersReducedMotion = () =>
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1207,6 +1388,7 @@ body {
 
     choiceResult.removeAttribute("hidden");
     slot?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    maybeShowFinale();
   }
 
   startBtn.addEventListener("click", async () => {
