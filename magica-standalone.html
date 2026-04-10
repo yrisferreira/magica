@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>I have a magic trick for you ✨</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+:root {
+  --ink: #0a0a12;
+  --ink-mid: #12121f;
+  --violet: #6b5fd4;
+  --rose: #e879a8;
+  --gold: #d4a84b;
+  --mist: rgba(230, 228, 255, 0.12);
+  --text: #f0eef8;
+  --text-soft: rgba(240, 238, 248, 0.72);
+  --card-w: clamp(7.5rem, 22vw, 10.5rem);
+  --card-w-fan: clamp(7.25rem, 18vw, 10.25rem);
+  --radius-card: 0.65rem;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-ui: "Outfit", system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: clamp(15px, 2.4vw, 17px);
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  font-family: var(--font-ui);
+  color: var(--text);
+  background: var(--ink);
+  overflow-x: hidden;
+}
+
+.sky {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.sky-gradient {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 100% 80% at 50% -10%, rgba(107, 95, 212, 0.35) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 50% at 100% 60%, rgba(232, 121, 168, 0.12) 0%, transparent 45%),
+    radial-gradient(ellipse 60% 40% at 0% 80%, rgba(107, 95, 212, 0.15) 0%, transparent 40%),
+    linear-gradient(180deg, #0c0c18 0%, #08080f 50%, #050508 100%);
+}
+
+.stars,
+.twinkles {
+  position: absolute;
+  inset: 0;
+}
+
+.star-dot {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.8);
+  opacity: 0.85;
+  animation: twinkle var(--t, 3s) ease-in-out infinite;
+  animation-delay: var(--d, 0s);
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.7);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+.twinkle-spark {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: radial-gradient(circle, #fff 0%, transparent 70%);
+  opacity: 0.5;
+  animation: drift 12s linear infinite;
+  animation-delay: var(--dd, 0s);
+}
+
+@keyframes drift {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  100% {
+    transform: translateY(-100vh) translateX(20px);
+  }
+}
+
+.glow-orbs {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+}
+
+.orb-a {
+  width: min(50vw, 320px);
+  height: min(50vw, 320px);
+  background: var(--violet);
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.orb-b {
+  width: min(40vw, 260px);
+  height: min(40vw, 260px);
+  background: var(--rose);
+  bottom: 10%;
+  right: 5%;
+  opacity: 0.2;
+}
+
+.wizard-buddy {
+  position: fixed;
+  z-index: 5;
+  left: clamp(0.35rem, 2.5vw, 1.1rem);
+  bottom: clamp(5rem, 14vh, 7.5rem);
+  pointer-events: none;
+  animation: wizard-float 3.8s ease-in-out infinite;
+  filter: drop-shadow(0 10px 28px rgba(107, 95, 212, 0.5));
+}
+
+.wizard-buddy__svg {
+  display: block;
+  width: clamp(76px, 24vw, 118px);
+  height: auto;
+}
+
+.wizard-buddy__spark {
+  position: absolute;
+  top: 0;
+  right: -0.15rem;
+  font-size: 1.15rem;
+  animation: spark-twinkle 1.6s ease-in-out infinite;
+}
+
+@keyframes wizard-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-11px);
+  }
+}
+
+@keyframes spark-twinkle {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+.rabbit-runway {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  bottom: clamp(3.25rem, 9vh, 6.25rem);
+  height: 58px;
+  z-index: 4;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.rabbit-racer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  will-change: transform;
+  animation: rabbit-sprint 20s linear infinite;
+}
+
+.rabbit-racer__bob {
+  display: inline-block;
+  animation: rabbit-hop 0.52s ease-in-out infinite;
+}
+
+.rabbit-racer__svg {
+  display: block;
+  filter: drop-shadow(0 5px 14px rgba(0, 0, 0, 0.45));
+}
+
+.rabbit-racer__stars {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  font-size: 0.9rem;
+  animation: spark-twinkle 1.1s ease-in-out infinite;
+}
+
+@keyframes rabbit-sprint {
+  0% {
+    transform: translateX(-90px);
+  }
+  100% {
+    transform: translateX(calc(100vw + 90px));
+  }
+}
+
+@keyframes rabbit-hop {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+.stage {
+  position: relative;
+  z-index: 2;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+.panel {
+  width: min(100%, 52rem);
+  text-align: center;
+}
+
+.intro-panel {
+  animation: enter-up 1s ease-out both;
+}
+
+@keyframes enter-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.intro-panel.is-out {
+  animation: fade-out 0.7s ease forwards;
+  pointer-events: none;
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2rem, 6vw, 3rem);
+  line-height: 1.15;
+  margin: 0 0 1.75rem;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 40px rgba(107, 95, 212, 0.45);
+}
+
+.subtitle {
+  margin: 0 0 2rem;
+  color: var(--text-soft);
+  font-weight: 300;
+  font-size: 1.05rem;
+}
+
+.btn {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.95em 1.75em;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary {
+  color: var(--ink);
+  background: linear-gradient(135deg, #f5e6ff 0%, #e8d4ff 40%, #ffd6e8 100%);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.35) inset,
+    0 12px 40px rgba(107, 95, 212, 0.35);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.45) inset,
+    0 16px 48px rgba(232, 121, 168, 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: wait;
+  transform: none;
+}
+
+.magic-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
+  opacity: 0;
+  animation: fade-in 0.9s ease 0.35s forwards;
+}
+
+.magic-panel[hidden] {
+  display: none !important;
+}
+
+@keyframes fade-in {
+  to {
+    opacity: 1;
+  }
+}
+
+.magic-veil {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  margin: calc(-50dvh + 50%) calc(-50vw + 50%);
+  width: 100vw;
+  height: 100dvh;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle at 50% 40%, rgba(107, 95, 212, 0.25) 0%, transparent 55%);
+  transition: opacity 1.2s ease;
+}
+
+.magic-veil.is-lit {
+  opacity: 1;
+}
+
+.fan-wrap {
+  perspective: 1200px;
+  width: 100%;
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 0.35rem clamp(0.35rem, 2vw, 1rem) 0.75rem;
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-color: rgba(212, 168, 75, 0.45) rgba(255, 255, 255, 0.06);
+  scrollbar-width: thin;
+}
+
+.fan-wrap.pop-in .fan {
+  animation: fan-enter 0.85s cubic-bezier(0.34, 1.12, 0.64, 1) both;
+}
+
+@keyframes fan-enter {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem) rotateX(14deg) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg) scale(1);
+  }
+}
+
+.fan {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  align-items: flex-start;
+  gap: clamp(0.65rem, 2.2vw, 1.25rem);
+  width: max-content;
+  max-width: 100%;
+  min-width: min(100%, max-content);
+  margin: 0 auto;
+  min-height: calc(var(--card-w-fan) * 1.42 + 0.5rem);
+  padding-bottom: 0.35rem;
+  transform-style: preserve-3d;
+}
+
+.pick-card {
+  position: relative;
+  flex: 0 0 auto;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transform-origin: 50% 100%;
+  transition: transform 0.3s ease, filter 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pick-card:nth-child(odd) {
+  transform: rotate(-2.5deg);
+}
+
+.pick-card:nth-child(even) {
+  transform: rotate(2.5deg);
+}
+
+.pick-card:focus-visible {
+  outline: 2px solid rgba(212, 168, 75, 0.9);
+  outline-offset: 6px;
+  border-radius: var(--radius-card);
+}
+
+.pick-card.is-revealed {
+  cursor: default;
+  transform: rotate(0deg) scale(1.02);
+  filter: drop-shadow(0 0 18px rgba(212, 168, 75, 0.35));
+}
+
+@keyframes card-vanish-magic {
+  0% {
+    opacity: 1;
+    filter: drop-shadow(0 0 18px rgba(212, 168, 75, 0.45));
+    transform: rotate(0deg) scale(1.02);
+  }
+  40% {
+    opacity: 1;
+    filter:
+      drop-shadow(0 0 36px rgba(255, 220, 130, 0.95))
+      drop-shadow(0 0 24px rgba(107, 95, 212, 0.65));
+    transform: rotate(8deg) scale(1.12);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(16px) brightness(2);
+    transform: rotate(-24deg) scale(0);
+  }
+}
+
+.pick-card.is-vanishing {
+  pointer-events: none;
+  transition: none !important;
+  animation: card-vanish-magic 0.88s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  z-index: 8;
+}
+
+.pick-card.is-gone {
+  display: none;
+}
+
+.pick-card-inner {
+  display: block;
+  transition: transform 0.28s ease;
+}
+
+.pick-card:hover:not(.is-revealed):not(.is-vanishing) .pick-card-inner {
+  transform: translateY(-10px) scale(1.04);
+}
+
+.fan-card-flip {
+  width: var(--card-w-fan);
+  height: calc(var(--card-w-fan) * 1.4);
+  perspective: 900px;
+}
+
+.fan-card-flip .card-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.95s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fan-card-flip .card-flip-inner.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.fan-card-flip .card {
+  width: var(--card-w-fan);
+  height: calc(var(--card-w-fan) * 1.4);
+}
+
+.fan-card-flip .card--back,
+.fan-card-flip .card--face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.fan-card-flip .card--face {
+  transform: rotateY(180deg);
+}
+
+.card--face.card--compliment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 0.5rem 0.65rem;
+  text-align: center;
+  gap: 0.35rem;
+}
+
+.card-face-mark {
+  position: absolute;
+  top: 0.45rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.05rem;
+  line-height: 1;
+  opacity: 0.9;
+}
+
+.card-compliment-text {
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 3.2vw, 1.35rem);
+  line-height: 1.38;
+  font-weight: 600;
+  font-style: italic;
+  margin: 1.15rem 0 0;
+  color: #2a2238;
+  max-height: calc(var(--card-w-fan) * 1.15);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+}
+
+.card {
+  width: var(--card-w);
+  height: calc(var(--card-w) * 1.4);
+  border-radius: var(--radius-card);
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.35),
+    0 18px 40px rgba(0, 0, 0, 0.45);
+}
+
+.card--back {
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.1) 0%, transparent 40%),
+    linear-gradient(135deg, #1e1a35 0%, #2d2650 35%, #1a1530 100%);
+  border: 2px solid rgba(212, 168, 75, 0.55);
+  background-image:
+    radial-gradient(circle at 30% 30%, rgba(212, 168, 75, 0.15) 0%, transparent 45%),
+    repeating-linear-gradient(
+      -28deg,
+      transparent,
+      transparent 3px,
+      rgba(212, 168, 75, 0.06) 3px,
+      rgba(212, 168, 75, 0.06) 4px
+    ),
+    linear-gradient(135deg, #1e1a35 0%, #2d2650 50%, #15122a 100%);
+}
+
+.card--face {
+  background: linear-gradient(165deg, #fdfcff 0%, #f0e8ff 100%);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  display: grid;
+  place-items: center;
+  position: relative;
+  color: #1a1528;
+}
+
+.card--face.is-red {
+  color: #c41e3a;
+}
+
+.card-corner {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-display);
+  line-height: 1;
+  font-weight: 600;
+}
+
+.card-corner--tl {
+  top: 0.5rem;
+  left: 0.55rem;
+  font-size: clamp(0.95rem, 3vw, 1.15rem);
+}
+
+.card-corner--br {
+  bottom: 0.5rem;
+  right: 0.55rem;
+  transform: rotate(180deg);
+  font-size: clamp(0.95rem, 3vw, 1.15rem);
+}
+
+.card-center-suit {
+  font-size: clamp(2.5rem, 10vw, 3.75rem);
+  opacity: 0.92;
+}
+
+.card-rank {
+  display: block;
+}
+
+.card-suit {
+  display: block;
+  font-size: 0.95em;
+  margin-top: 0.1em;
+}
+
+.phase-text {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 3.6vw, 1.55rem);
+  font-style: italic;
+  color: var(--text-soft);
+  margin: 0;
+  min-height: 2.5em;
+  max-width: 24rem;
+  line-height: 1.45;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+
+.phase-text.phase-text--show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.choice-result {
+  width: 100%;
+  max-width: 32rem;
+  margin: 0.75rem auto 0;
+  text-align: left;
+}
+
+.choice-result[hidden] {
+  display: none !important;
+}
+
+.log-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 3vw, 1.3rem);
+  font-weight: 600;
+  margin: 0 0 0.65rem;
+  color: var(--text-soft);
+  text-align: center;
+}
+
+.sentence-assembly {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 3.4vw, 1.45rem);
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0.85rem 1rem;
+  border-radius: 0.65rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(212, 168, 75, 0.2);
+  color: var(--text);
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35rem 0.5rem;
+}
+
+.word-slot {
+  min-width: 2.25rem;
+  padding: 0.2rem 0.35rem;
+  border-radius: 0.35rem;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-soft);
+  transition: color 0.35s ease, background 0.35s ease;
+}
+
+.word-slot.is-revealed {
+  color: var(--text);
+  background: rgba(212, 168, 75, 0.12);
+}
+
+.compliments-log {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.compliments-log li {
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 2.8vw, 1.12rem);
+  line-height: 1.45;
+  padding: 0.65rem 0.85rem;
+  border-radius: 0.65rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(212, 168, 75, 0.2);
+  color: var(--text);
+  animation: log-item-in 0.55s ease both;
+}
+
+@keyframes log-item-in {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.btn-sound {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 10;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 1px solid var(--mist);
+  background: rgba(20, 18, 35, 0.65);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.btn-sound:hover {
+  background: rgba(40, 36, 65, 0.8);
+  transform: scale(1.05);
+}
+
+.btn-sound[aria-pressed="false"] {
+  opacity: 0.75;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .intro-panel {
+    animation: none;
+    opacity: 1;
+  }
+
+  .magic-panel {
+    animation: none;
+    opacity: 1;
+  }
+
+  .fan-card-flip .card-flip-inner {
+    transition: none;
+  }
+
+  .fan-card-flip .card-flip-inner.is-flipped {
+    transform: rotateY(180deg);
+  }
+
+  .wizard-buddy,
+  .rabbit-racer,
+  .rabbit-racer__bob,
+  .wizard-buddy__spark,
+  .rabbit-racer__stars {
+    animation: none !important;
+  }
+
+  .rabbit-racer {
+    transform: translateX(35vw);
+  }
+
+  .pick-card.is-vanishing {
+    animation: none;
+    opacity: 0;
+    transform: scale(0.5);
+    filter: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .wizard-buddy {
+    bottom: auto;
+    top: clamp(4.5rem, 14vw, 6rem);
+    left: 0.35rem;
+  }
+
+  .rabbit-runway {
+    bottom: 3.5rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .rabbit-racer {
+    animation-duration: 26s;
+  }
+}
+
+</style>
+</head>
+<body>
+  <div class="sky" aria-hidden="true">
+    <div class="sky-gradient"></div>
+    <div class="stars" id="stars"></div>
+    <div class="twinkles" id="twinkles"></div>
+  </div>
+
+  <div class="glow-orbs" aria-hidden="true">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+  </div>
+
+  <div class="wizard-buddy" aria-hidden="true">
+    <svg class="wizard-buddy__svg" viewBox="0 0 120 140" width="120" height="140" role="img">
+      <title>Friendly little wizard</title>
+      <defs>
+        <linearGradient id="wizHat" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#6b5fd4" />
+          <stop offset="100%" style="stop-color:#3d2f7a" />
+        </linearGradient>
+        <linearGradient id="wizRobe" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style="stop-color:#4a3f8c" />
+          <stop offset="100%" style="stop-color:#2a2248" />
+        </linearGradient>
+      </defs>
+      <ellipse cx="60" cy="128" rx="38" ry="8" fill="rgba(0,0,0,0.35)" />
+      <!-- barba -->
+      <path d="M38 88 Q60 118 82 88 Q78 102 60 108 Q42 102 38 88" fill="#c9b8e8" opacity="0.9" />
+      <!-- robe -->
+      <path d="M35 85 L28 130 L92 130 L85 85 Z" fill="url(#wizRobe)" stroke="#d4a84b" stroke-width="1.2" />
+      <!-- face -->
+      <circle cx="60" cy="72" r="22" fill="#f5d4c8" />
+      <!-- olhos -->
+      <circle cx="52" cy="70" r="3.5" fill="#2a2248" />
+      <circle cx="68" cy="70" r="3.5" fill="#2a2248" />
+      <circle cx="53" cy="69" r="1.2" fill="#fff" />
+      <circle cx="69" cy="69" r="1.2" fill="#fff" />
+      <!-- sorriso -->
+      <path d="M52 80 Q60 86 68 80" fill="none" stroke="#c47a6a" stroke-width="1.8" stroke-linecap="round" />
+      <!-- chapéu -->
+      <path d="M30 68 L60 18 L90 68 Q60 62 30 68 Z" fill="url(#wizHat)" stroke="#d4a84b" stroke-width="1.5" />
+      <ellipse cx="60" cy="68" rx="34" ry="7" fill="#2a2248" stroke="#d4a84b" stroke-width="1" />
+      <text x="48" y="48" font-size="14" fill="#ffd866">✦</text>
+      <!-- varinha -->
+      <line x1="88" y1="95" x2="108" y2="72" stroke="#d4a84b" stroke-width="3" stroke-linecap="round" />
+      <circle cx="110" cy="69" r="5" fill="#fff8a8" opacity="0.95" />
+    </svg>
+    <span class="wizard-buddy__spark" aria-hidden="true">✨</span>
+  </div>
+
+  <div class="rabbit-runway" aria-hidden="true">
+    <div class="rabbit-racer">
+      <div class="rabbit-racer__bob">
+        <svg class="rabbit-racer__svg" viewBox="0 0 64 56" width="56" height="49" role="img">
+          <title>Magic rabbit</title>
+          <ellipse cx="32" cy="22" rx="22" ry="6" fill="#2a2248" />
+          <rect x="18" y="8" width="28" height="16" rx="2" fill="#4a3f8c" stroke="#d4a84b" stroke-width="1" />
+          <rect x="22" y="4" width="20" height="8" rx="1" fill="#6b5fd4" />
+          <ellipse cx="22" cy="30" rx="5" ry="14" fill="#e8b4b8" transform="rotate(-12 22 30)" />
+          <ellipse cx="42" cy="30" rx="5" ry="14" fill="#e8b4b8" transform="rotate(12 42 30)" />
+          <ellipse cx="32" cy="36" rx="16" ry="14" fill="#f5e6e8" />
+          <circle cx="26" cy="34" r="3" fill="#2a2248" />
+          <circle cx="38" cy="34" r="3" fill="#2a2248" />
+          <path d="M28 42 Q32 46 36 42" fill="none" stroke="#c47a6a" stroke-width="1.5" stroke-linecap="round" />
+          <ellipse cx="32" cy="50" rx="12" ry="8" fill="#f0d4d8" />
+        </svg>
+        <span class="rabbit-racer__stars" aria-hidden="true">✨</span>
+      </div>
+    </div>
+  </div>
+
+  <main class="stage">
+    <section class="panel intro-panel" id="intro-panel" aria-labelledby="main-title">
+      <h1 class="title" id="main-title">I have a magic trick for you ✨</h1>
+      <button type="button" class="btn btn-primary" id="start-btn">
+        Click for the magic to begin
+      </button>
+    </section>
+
+    <section
+      class="panel magic-panel"
+      id="magic-panel"
+      hidden
+      aria-live="polite"
+      aria-label="Choose your cards"
+    >
+      <div class="magic-veil" id="magic-veil"></div>
+
+      <div class="fan-wrap" id="fan-wrap">
+        <div class="fan" id="fan" role="group" aria-label="Spread deck"></div>
+      </div>
+
+      <p class="phase-text" id="phase-text"></p>
+
+      <div class="choice-result" id="choice-result" hidden>
+        <p class="log-title" id="log-title">Your message ✨</p>
+        <p class="sentence-assembly" id="sentence-assembly" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <button
+      type="button"
+      class="btn-sound"
+      id="sound-toggle"
+      aria-pressed="true"
+      title="Turn sound on or off"
+    >
+      <span class="sound-on" aria-hidden="true">🔔</span>
+      <span class="sound-off" hidden aria-hidden="true">🔕</span>
+    </button>
+  </main>
+
+  <script>
+(function () {
+  "use strict";
+
+  const PHRASE_WORDS = ["Let", "me", "see", "you", "naked."];
+
+  const CARD_COUNT = PHRASE_WORDS.length;
+
+  const introPanel = document.getElementById("intro-panel");
+  const startBtn = document.getElementById("start-btn");
+  const magicPanel = document.getElementById("magic-panel");
+  const magicVeil = document.getElementById("magic-veil");
+  const fanWrap = document.getElementById("fan-wrap");
+  const fan = document.getElementById("fan");
+  const phaseText = document.getElementById("phase-text");
+  const choiceResult = document.getElementById("choice-result");
+  const sentenceAssembly = document.getElementById("sentence-assembly");
+  const soundToggle = document.getElementById("sound-toggle");
+  const starsEl = document.getElementById("stars");
+  const twinklesEl = document.getElementById("twinkles");
+
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function shuffledPhraseDeck() {
+    const entries = PHRASE_WORDS.map((word, sentenceIndex) => ({ word, sentenceIndex }));
+    return shuffle(entries);
+  }
+
+  function initSentenceSlots() {
+    sentenceAssembly.innerHTML = PHRASE_WORDS.map(
+      (_, i) =>
+        `<span class="word-slot" data-slot="${i}" aria-label="Word ${i + 1} not revealed">·</span>`
+    ).join(" ");
+  }
+
+  function createPickCard(index, word, sentenceIndex) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "pick-card";
+    btn.dataset.sentenceIndex = String(sentenceIndex);
+    btn.setAttribute("aria-label", `Card ${index + 1} — tap to reveal a word`);
+    btn.innerHTML = `
+      <span class="pick-card-inner">
+        <span class="fan-card-flip">
+          <span class="card-flip-inner">
+            <span class="card card--back"></span>
+            <span class="card card--face card--compliment">
+              <span class="card-face-mark" aria-hidden="true">✨</span>
+              <p class="card-compliment-text"></p>
+            </span>
+          </span>
+        </span>
+      </span>
+    `;
+    btn.querySelector(".card-compliment-text").textContent = word;
+    return btn;
+  }
+
+  function buildFan() {
+    fan.innerHTML = "";
+    const deck = shuffledPhraseDeck();
+    for (let i = 0; i < deck.length; i++) {
+      const { word, sentenceIndex } = deck[i];
+      fan.appendChild(createPickCard(i, word, sentenceIndex));
+    }
+  }
+
+  function wait(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  function fillStars() {
+    const n = Math.min(70, Math.floor((window.innerWidth / 28) * 10));
+    starsEl.innerHTML = "";
+    for (let i = 0; i < n; i++) {
+      const s = document.createElement("div");
+      s.className = "star-dot";
+      s.style.left = `${Math.random() * 100}%`;
+      s.style.top = `${Math.random() * 100}%`;
+      s.style.setProperty("--t", `${2 + Math.random() * 4}s`);
+      s.style.setProperty("--d", `${Math.random() * 4}s`);
+      starsEl.appendChild(s);
+    }
+  }
+
+  function fillTwinkles() {
+    const n = 14;
+    twinklesEl.innerHTML = "";
+    for (let i = 0; i < n; i++) {
+      const t = document.createElement("div");
+      t.className = "twinkle-spark";
+      t.style.left = `${Math.random() * 100}%`;
+      t.style.bottom = `${-20 - Math.random() * 40}%`;
+      t.style.setProperty("--dd", `${Math.random() * 10}s`);
+      twinklesEl.appendChild(t);
+    }
+  }
+
+  fillStars();
+  fillTwinkles();
+  window.addEventListener("resize", fillStars);
+
+  let audioCtx = null;
+  let soundOn = true;
+
+  function initAudio() {
+    if (!audioCtx) {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (AC) audioCtx = new AC();
+    }
+    return audioCtx;
+  }
+
+  async function unlockAudio() {
+    const ctx = initAudio();
+    if (ctx && ctx.state === "suspended") {
+      await ctx.resume();
+    }
+  }
+
+  function playTone(freq, duration, volume, startWhen) {
+    if (!soundOn || !audioCtx) return;
+    const when = startWhen ?? audioCtx.currentTime;
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.connect(g);
+    g.connect(audioCtx.destination);
+    o.type = "sine";
+    o.frequency.value = freq;
+    g.gain.setValueAtTime(0, when);
+    g.gain.linearRampToValueAtTime(volume, when + 0.03);
+    g.gain.exponentialRampToValueAtTime(0.0008, when + duration);
+    o.start(when);
+    o.stop(when + duration + 0.06);
+  }
+
+  function playMagicChime(kind) {
+    if (!soundOn || !audioCtx) return;
+    const t = audioCtx.currentTime;
+    if (kind === "start") {
+      playTone(523.25, 0.32, 0.055, t);
+      playTone(659.25, 0.32, 0.05, t + 0.1);
+      playTone(783.99, 0.4, 0.045, t + 0.22);
+    } else if (kind === "reveal") {
+      playTone(392, 0.45, 0.05, t);
+      playTone(523.25, 0.45, 0.048, t + 0.08);
+      playTone(659.25, 0.5, 0.042, t + 0.16);
+      playTone(880, 0.55, 0.038, t + 0.24);
+    } else if (kind === "vanish") {
+      playTone(783.99, 0.2, 0.048, t);
+      playTone(987.77, 0.22, 0.04, t + 0.06);
+      playTone(1174.66, 0.28, 0.034, t + 0.13);
+    }
+  }
+
+  soundToggle.addEventListener("click", () => {
+    soundOn = !soundOn;
+    soundToggle.setAttribute("aria-pressed", soundOn ? "true" : "false");
+    soundToggle.querySelector(".sound-on").hidden = !soundOn;
+    soundToggle.querySelector(".sound-off").hidden = soundOn;
+  });
+
+  let started = false;
+
+  const prefersReducedMotion = () =>
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function scheduleCardVanish(btn) {
+    const inner = btn.querySelector(".card-flip-inner");
+
+    function finishVanish() {
+      if (!btn.classList.contains("is-gone")) btn.classList.add("is-gone");
+    }
+
+    function beginVanish() {
+      if (btn.classList.contains("is-vanishing") || btn.classList.contains("is-gone")) return;
+      playMagicChime("vanish");
+      btn.classList.add("is-vanishing");
+
+      if (prefersReducedMotion()) {
+        window.setTimeout(finishVanish, 100);
+        return;
+      }
+
+      btn.addEventListener(
+        "animationend",
+        (e) => {
+          if (e.animationName === "card-vanish-magic") finishVanish();
+        },
+        { once: true }
+      );
+      window.setTimeout(finishVanish, 2000);
+    }
+
+    if (prefersReducedMotion()) {
+      window.setTimeout(beginVanish, 100);
+      return;
+    }
+
+    let flipHandled = false;
+    function afterFlip() {
+      if (flipHandled) return;
+      flipHandled = true;
+      inner.removeEventListener("transitionend", onFlipDone);
+      beginVanish();
+    }
+
+    function onFlipDone(e) {
+      if (e.target !== inner || e.propertyName !== "transform") return;
+      afterFlip();
+    }
+
+    inner.addEventListener("transitionend", onFlipDone);
+    window.setTimeout(() => {
+      afterFlip();
+    }, 1100);
+  }
+
+  function onPickCard(btn) {
+    if (
+      btn.classList.contains("is-revealed") ||
+      btn.classList.contains("is-vanishing") ||
+      btn.classList.contains("is-gone")
+    ) {
+      return;
+    }
+
+    unlockAudio();
+    playMagicChime("reveal");
+
+    btn.classList.add("is-revealed");
+    btn.setAttribute("aria-label", "Word revealed on this card");
+
+    const inner = btn.querySelector(".card-flip-inner");
+    requestAnimationFrame(() => {
+      inner.classList.add("is-flipped");
+    });
+
+    scheduleCardVanish(btn);
+
+    const text = btn.querySelector(".card-compliment-text").textContent.trim();
+    const slotIdx = parseInt(btn.dataset.sentenceIndex, 10);
+    const slot = sentenceAssembly.querySelector(`[data-slot="${slotIdx}"]`);
+    if (slot) {
+      slot.textContent = text;
+      slot.classList.add("is-revealed");
+      slot.setAttribute("aria-label", `Word ${slotIdx + 1}: ${text}`);
+    }
+
+    choiceResult.removeAttribute("hidden");
+    slot?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  startBtn.addEventListener("click", async () => {
+    if (started) return;
+    started = true;
+    startBtn.disabled = true;
+
+    choiceResult.setAttribute("hidden", "");
+    initSentenceSlots();
+
+    await unlockAudio();
+    playMagicChime("start");
+
+    buildFan();
+    fan.querySelectorAll(".pick-card").forEach((btn) => {
+      btn.addEventListener("click", () => onPickCard(btn));
+    });
+
+    introPanel.classList.add("is-out");
+    await wait(680);
+    introPanel.setAttribute("hidden", "");
+    introPanel.setAttribute("aria-hidden", "true");
+
+    magicPanel.removeAttribute("hidden");
+
+    magicVeil.classList.add("is-lit");
+    fanWrap.classList.add("pop-in");
+
+    await wait(420);
+    phaseText.textContent =
+      "All the cards are in view — flip them to spell out the message. ✨";
+    phaseText.classList.add("phase-text--show");
+  });
+})();
+
+</script>
+</body>
+</html>
