@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uma surpresa para ti ✨</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="sky" aria-hidden="true">
+    <div class="sky-gradient"></div>
+    <div class="stars" id="stars"></div>
+    <div class="twinkles" id="twinkles"></div>
+  </div>
+
+  <div class="glow-orbs" aria-hidden="true">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+  </div>
+
+  <!-- Bonequinho mágico (decoração) -->
+  <div class="wizard-buddy" aria-hidden="true">
+    <svg class="wizard-buddy__svg" viewBox="0 0 120 140" width="120" height="140" role="img">
+      <title>Mágico fofo</title>
+      <defs>
+        <linearGradient id="wizHat" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#6b5fd4" />
+          <stop offset="100%" style="stop-color:#3d2f7a" />
+        </linearGradient>
+        <linearGradient id="wizRobe" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style="stop-color:#4a3f8c" />
+          <stop offset="100%" style="stop-color:#2a2248" />
+        </linearGradient>
+      </defs>
+      <ellipse cx="60" cy="128" rx="38" ry="8" fill="rgba(0,0,0,0.35)" />
+      <!-- barba -->
+      <path d="M38 88 Q60 118 82 88 Q78 102 60 108 Q42 102 38 88" fill="#c9b8e8" opacity="0.9" />
+      <!-- robe -->
+      <path d="M35 85 L28 130 L92 130 L85 85 Z" fill="url(#wizRobe)" stroke="#d4a84b" stroke-width="1.2" />
+      <!-- face -->
+      <circle cx="60" cy="72" r="22" fill="#f5d4c8" />
+      <!-- olhos -->
+      <circle cx="52" cy="70" r="3.5" fill="#2a2248" />
+      <circle cx="68" cy="70" r="3.5" fill="#2a2248" />
+      <circle cx="53" cy="69" r="1.2" fill="#fff" />
+      <circle cx="69" cy="69" r="1.2" fill="#fff" />
+      <!-- sorriso -->
+      <path d="M52 80 Q60 86 68 80" fill="none" stroke="#c47a6a" stroke-width="1.8" stroke-linecap="round" />
+      <!-- chapéu -->
+      <path d="M30 68 L60 18 L90 68 Q60 62 30 68 Z" fill="url(#wizHat)" stroke="#d4a84b" stroke-width="1.5" />
+      <ellipse cx="60" cy="68" rx="34" ry="7" fill="#2a2248" stroke="#d4a84b" stroke-width="1" />
+      <text x="48" y="48" font-size="14" fill="#ffd866">✦</text>
+      <!-- varinha -->
+      <line x1="88" y1="95" x2="108" y2="72" stroke="#d4a84b" stroke-width="3" stroke-linecap="round" />
+      <circle cx="110" cy="69" r="5" fill="#fff8a8" opacity="0.95" />
+    </svg>
+    <span class="wizard-buddy__spark" aria-hidden="true">✨</span>
+  </div>
+
+  <!-- Coelhinho mágico a passar pelo ecrã -->
+  <div class="rabbit-runway" aria-hidden="true">
+    <div class="rabbit-racer">
+      <div class="rabbit-racer__bob">
+        <svg class="rabbit-racer__svg" viewBox="0 0 64 56" width="56" height="49" role="img">
+          <title>Coelho mágico</title>
+          <ellipse cx="32" cy="22" rx="22" ry="6" fill="#2a2248" />
+          <rect x="18" y="8" width="28" height="16" rx="2" fill="#4a3f8c" stroke="#d4a84b" stroke-width="1" />
+          <rect x="22" y="4" width="20" height="8" rx="1" fill="#6b5fd4" />
+          <ellipse cx="22" cy="30" rx="5" ry="14" fill="#e8b4b8" transform="rotate(-12 22 30)" />
+          <ellipse cx="42" cy="30" rx="5" ry="14" fill="#e8b4b8" transform="rotate(12 42 30)" />
+          <ellipse cx="32" cy="36" rx="16" ry="14" fill="#f5e6e8" />
+          <circle cx="26" cy="34" r="3" fill="#2a2248" />
+          <circle cx="38" cy="34" r="3" fill="#2a2248" />
+          <path d="M28 42 Q32 46 36 42" fill="none" stroke="#c47a6a" stroke-width="1.5" stroke-linecap="round" />
+          <ellipse cx="32" cy="50" rx="12" ry="8" fill="#f0d4d8" />
+        </svg>
+        <span class="rabbit-racer__stars" aria-hidden="true">✨</span>
+      </div>
+    </div>
+  </div>
+
+  <main class="stage">
+    <section class="panel intro-panel" id="intro-panel" aria-labelledby="main-title">
+      <h1 class="title" id="main-title">Uma surpresa para ti ✨</h1>
+      <p class="subtitle">Um pouco de magia, sincera — mesmo antes de nos vermos.</p>
+      <button type="button" class="btn btn-primary" id="start-btn">
+        Clica para começar a magia
+      </button>
+    </section>
+
+    <section
+      class="panel magic-panel"
+      id="magic-panel"
+      hidden
+      aria-live="polite"
+      aria-label="Escolhe as cartas"
+    >
+      <div class="magic-veil" id="magic-veil"></div>
+
+      <div class="fan-wrap" id="fan-wrap">
+        <div class="fan" id="fan" role="group" aria-label="Baralho aberto"></div>
+      </div>
+
+      <p class="phase-text" id="phase-text"></p>
+
+      <div class="choice-result" id="choice-result" hidden>
+        <p class="log-title" id="log-title">Elogios que já revelaste ✨</p>
+        <ul class="compliments-log" id="compliments-log" aria-label="Elogios revelados"></ul>
+      </div>
+    </section>
+
+    <button
+      type="button"
+      class="btn-sound"
+      id="sound-toggle"
+      aria-pressed="true"
+      title="Ligar ou desligar sons"
+    >
+      <span class="sound-on" aria-hidden="true">🔔</span>
+      <span class="sound-off" hidden aria-hidden="true">🔕</span>
+    </button>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
