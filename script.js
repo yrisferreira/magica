@@ -1,30 +1,9 @@
 (function () {
   "use strict";
 
-  const COMPLIMENTS = [
-    "You are gorgeous. ✨",
-    "You are so attractive.",
-    "I bet you have a heart-melting smile.",
-    "You have a glow that shows, even from afar.",
-    "You are adorable without even trying.",
-    "Unfair combo: good-looking and interesting.",
-    "You look like someone who makes hearts beat faster.",
-    "You are charming just by being here.",
-    "I love your vibe — great energy.",
-    "You are almost too cute for this world.",
-    "You have a way of holding attention.",
-    "You are irresistible — you know that?",
-    "Handsome from head to toe (yes, I am flirting).",
-    "Your smile, even in photos, must be dangerous.",
-    "You are the kind of person who sticks in the mind.",
-    "Hot and sweet at the same time — a rare mix.",
-    "There is magic in the way you look — or maybe I just like you a lot.",
-    "You are beautiful outside; it is easy to imagine you are just as amazing inside.",
-    "Every message from you feels like a smile — I love that.",
-    "You are the crush that makes the phone light up a little brighter.",
-  ];
+  const PHRASE_WORDS = ["Let", "me", "see", "you", "naked."];
 
-  const CARD_COUNT = 9;
+  const CARD_COUNT = PHRASE_WORDS.length;
 
   const introPanel = document.getElementById("intro-panel");
   const startBtn = document.getElementById("start-btn");
@@ -34,7 +13,7 @@
   const fan = document.getElementById("fan");
   const phaseText = document.getElementById("phase-text");
   const choiceResult = document.getElementById("choice-result");
-  const complimentsLog = document.getElementById("compliments-log");
+  const sentenceAssembly = document.getElementById("sentence-assembly");
   const soundToggle = document.getElementById("sound-toggle");
   const starsEl = document.getElementById("stars");
   const twinklesEl = document.getElementById("twinkles");
@@ -48,22 +27,24 @@
     return a;
   }
 
-  function drawComplimentsForDeck(count) {
-    const out = [];
-    while (out.length < count) {
-      for (const line of shuffle([...COMPLIMENTS])) {
-        if (out.length >= count) break;
-        out.push(line);
-      }
-    }
-    return out.slice(0, count);
+  function shuffledPhraseDeck() {
+    const entries = PHRASE_WORDS.map((word, sentenceIndex) => ({ word, sentenceIndex }));
+    return shuffle(entries);
   }
 
-  function createPickCard(index, complimentText) {
+  function initSentenceSlots() {
+    sentenceAssembly.innerHTML = PHRASE_WORDS.map(
+      (_, i) =>
+        `<span class="word-slot" data-slot="${i}" aria-label="Word ${i + 1} not revealed">·</span>`
+    ).join(" ");
+  }
+
+  function createPickCard(index, word, sentenceIndex) {
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "pick-card";
-    btn.setAttribute("aria-label", `Card ${index + 1} — tap to reveal a compliment`);
+    btn.dataset.sentenceIndex = String(sentenceIndex);
+    btn.setAttribute("aria-label", `Card ${index + 1} — tap to reveal a word`);
     btn.innerHTML = `
       <span class="pick-card-inner">
         <span class="fan-card-flip">
@@ -77,15 +58,16 @@
         </span>
       </span>
     `;
-    btn.querySelector(".card-compliment-text").textContent = complimentText;
+    btn.querySelector(".card-compliment-text").textContent = word;
     return btn;
   }
 
   function buildFan() {
     fan.innerHTML = "";
-    const lines = drawComplimentsForDeck(CARD_COUNT);
-    for (let i = 0; i < CARD_COUNT; i++) {
-      fan.appendChild(createPickCard(i, lines[i]));
+    const deck = shuffledPhraseDeck();
+    for (let i = 0; i < deck.length; i++) {
+      const { word, sentenceIndex } = deck[i];
+      fan.appendChild(createPickCard(i, word, sentenceIndex));
     }
   }
 
@@ -189,7 +171,7 @@
     playMagicChime("reveal");
 
     btn.classList.add("is-revealed");
-    btn.setAttribute("aria-label", "Compliment revealed on this card");
+    btn.setAttribute("aria-label", "Word revealed on this card");
 
     const inner = btn.querySelector(".card-flip-inner");
     requestAnimationFrame(() => {
@@ -197,12 +179,16 @@
     });
 
     const text = btn.querySelector(".card-compliment-text").textContent.trim();
-    const li = document.createElement("li");
-    li.textContent = text;
-    complimentsLog.appendChild(li);
+    const slotIdx = parseInt(btn.dataset.sentenceIndex, 10);
+    const slot = sentenceAssembly.querySelector(`[data-slot="${slotIdx}"]`);
+    if (slot) {
+      slot.textContent = text;
+      slot.classList.add("is-revealed");
+      slot.setAttribute("aria-label", `Word ${slotIdx + 1}: ${text}`);
+    }
 
     choiceResult.removeAttribute("hidden");
-    li.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    slot?.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }
 
   startBtn.addEventListener("click", async () => {
@@ -210,8 +196,8 @@
     started = true;
     startBtn.disabled = true;
 
-    complimentsLog.innerHTML = "";
     choiceResult.setAttribute("hidden", "");
+    initSentenceSlots();
 
     await unlockAudio();
     playMagicChime("start");
@@ -233,7 +219,7 @@
 
     await wait(420);
     phaseText.textContent =
-      "All the cards are in view — flip as many as you like. Each one holds a compliment for you. ✨";
+      "All the cards are in view — flip them to spell out the message. ✨";
     phaseText.classList.add("phase-text--show");
   });
 })();
